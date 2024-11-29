@@ -1,0 +1,127 @@
+{
+	Tools = ordered() {
+		MacroTool4 = MacroOperator {
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "Template",
+					Source = "StyledText",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Template",
+					Source = "Font",
+					ControlGroup = 2,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Template",
+					Source = "Style",
+					ControlGroup = 2,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "Template",
+					Source = "Red1Clone",
+					Name = "カラー",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "Template",
+					Source = "Green1Clone",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "Template",
+					Source = "Blue1Clone",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "Template",
+					Source = "Alpha1Clone",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "Template",
+					Source = "Size",
+					Default = 0.09,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "Template",
+					Source = "CharacterSpacingClone",
+					Name = "トラッキング",
+					Default = 1,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "Template",
+					Source = "Center",
+					Name = "センター",
+				},
+				Input11 = InstanceInput {
+					SourceOp = "Template",
+					Source = "track0",
+				},
+				Input12 = InstanceInput {
+					SourceOp = "Template",
+					Source = "track1",
+				}
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Template",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				Template = TextPlus {
+					CtrlWZoom = false,
+					Inputs = {
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						StyledText = Input {
+							Value = StyledText {
+								Value = "Custom Title"
+							},
+						},
+						Font = Input { Value = "Open Sans", },
+						Style = Input { Value = "Semibold", },
+						Size = Input { Value = 0.09, },
+						VerticalJustificationNew = Input { Value = 3, },
+						HorizontalLeftCenterRight = Input { Value = -1, },
+						HorizontalJustificationNew = Input { Value = 3, },
+						Comments = Input { Value = " ", },
+						FrameRenderScript = Input { Value = "if (track0 == 0) then\n  t = (time - comp.RenderStart)\nelse\n  t = comp.RenderEnd - (time - comp.RenderStart)\nend\n\nss = t / fps % 60\nss_str = string.format(\"%02d\",ss)\nmm = t / fps / 60 % 60\nmm_str = string.format(\"%02d\",mm)\n\nif (track1 == 0) then\n  self.StyledText = mm_str .. \":\" .. ss_str\nelse\n  ms = t / fps % 1\n  ms_str = string.format(\"%.3f\",ms)\n  ms_str = string.sub(ms_str, 3)\n  self.StyledText = mm_str .. \":\" .. ss_str .. \":\" .. ms_str\nend", },
+						StartRenderScripts = Input { Value = 1, },
+						StartRenderScript = Input { Value = "fps = comp:GetPrefs(\"Comp.FrameFormat.Rate\")", }
+					},
+					ViewInfo = OperatorInfo { Pos = { 220, 49.5 } },
+					UserControls = ordered() {
+						track0 = {
+							LINKS_Name = "反転",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "CheckboxControl",
+							INP_Integer = false,
+							INP_SplineType = "Default",
+							CBC_TriState = false,
+						},
+						track1 = {
+							LINKS_Name = "ミリセカンド表示",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "CheckboxControl",
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 1,
+							INP_MinAllowed = -1000000,
+							INP_MaxAllowed = 1000000,
+							INP_SplineType = "Default",
+							CBC_TriState = false,
+						}
+					}
+				}
+			},
+		}
+	},
+	ActiveTool = "MacroTool4"
+}

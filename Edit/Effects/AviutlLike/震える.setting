@@ -1,0 +1,83 @@
+{
+	Tools = ordered() {
+		MacroTool4 = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track0",
+					Default = 5,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track1",
+					Default = 10,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track2",
+					Default = 1,
+				}
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Transform1",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				Transform1 = Transform {
+					CtrlWZoom = false,
+					Inputs = {
+						Center = Input { Value = { 0.478559596510531, 0.523699949932846 }, },
+						Angle = Input { Value = 7.3, },
+						Comments = Input { Value = "  ", },
+						FrameRenderScript = Input { Value = "if (time % track2 == 0) then\n    self.Center.X = 0.5 + (math.random() - 0.5) / 100 * track0\n    self.Center.Y = 0.5 + (math.random() - 0.5) / 100 * track0\n    self.Angle = (math.random() - 0.5) * track1\nend\n", }
+					},
+					ViewInfo = OperatorInfo { Pos = { 330, 49.5 } },
+					UserControls = ordered() {
+						track0 = {
+							LINKS_Name = "振幅",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 5,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 500,
+							INP_SplineType = "Default",
+						},
+						track1 = {
+							LINKS_Name = "角度",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "ScrewControl",
+							INP_Default = 10,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 180,
+							INP_MinAllowed = 0,
+							INP_MaxAllowed = 180,
+							INP_SplineType = "Default",
+						},
+						track2 = {
+							LINKS_Name = "間隔",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 1,
+							INP_Integer = true,
+							INP_MinScale = 1,
+							INP_MaxScale = 100,
+							INP_MinAllowed = 1,
+							INP_MaxAllowed = 100,
+							INP_SplineType = "Default",
+						}
+					}
+				}
+			},
+		}
+	},
+	ActiveTool = "MacroTool4"
+}

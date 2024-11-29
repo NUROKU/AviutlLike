@@ -1,0 +1,67 @@
+{
+	Tools = ordered() {
+		MacroTool4 = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track0",
+					Default = 1,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track1",
+					Default = 30,
+				}
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Transform1",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				Transform1 = Transform {
+					CtrlWZoom = false,
+					Inputs = {
+						FrameRenderScript = Input { Value = "self.Angle = math.sin(time*self.track0/fps*math.pi)*self.track1", },
+						StartRenderScripts = Input { Value = 1, },
+						StartRenderScript = Input { Value = "fps = comp:GetPrefs(\"Comp.FrameFormat.Rate\")", }
+					},
+					ViewInfo = OperatorInfo { Pos = { 440, 49.5 } },
+					UserControls = ordered() {
+						track0 = {
+							LINKS_Name = "速さ",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 1,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 10,
+							INP_MinAllowed = -1000000,
+							INP_MaxAllowed = 1000000,
+							INP_SplineType = "Default",
+						},
+						track1 = {
+							LINKS_Name = "角度",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "ScrewControl",
+							INP_Default = 30,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 180,
+							INP_MinAllowed = 0,
+							INP_MaxAllowed = 180,
+							INP_SplineType = "Default",
+						}
+					}
+				}
+			},
+		}
+	},
+	ActiveTool = "MacroTool4"
+}

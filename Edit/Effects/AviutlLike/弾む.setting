@@ -1,0 +1,87 @@
+{
+	Tools = ordered() {
+		MacroTool4 = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track0",
+					Default = 20,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track1",
+					Default = 150,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track2",
+					Default = 0,
+				}
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Transform1",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				Transform1 = Transform {
+					CtrlWZoom = false,
+					Inputs = {
+						Size = Input { Value = 0.9148936170213, },
+						XSize = Input { Value = 0.9148936170213, },
+						YSize = Input { Value = 0.9148936170213, },
+						FrameRenderScript = Input { Value = "c = math.abs(math.sin(math.pi/fps* time * (self.track0 / 10)))\npos_y = c / 1000 * self.track1 + 0.5\nself.Center.Y = pos_y\npos_x = 0.5 - sin(math.rad(track2))/2 + pos_y * math.sin(math.rad(track2))\nself.Center.X = pos_x", },
+						StartRenderScripts = Input { Value = 1, },
+						StartRenderScript = Input { Value = "fps = comp:GetPrefs(\"Comp.FrameFormat.Rate\")", }
+					},
+					ViewInfo = OperatorInfo { Pos = { 330, 49.5 } },
+					UserControls = ordered() {
+						track0 = {
+							LINKS_Name = "速さ",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 20,
+							INP_Integer = false,
+							INP_MinScale = 0.100000001490116,
+							INP_MaxScale = 100,
+							INP_MinAllowed = 0.100000001490116,
+							INP_MaxAllowed = 100,
+							INP_SplineType = "Default",
+						},
+						track1 = {
+							LINKS_Name = "高さ",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 150,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 1000,
+							INP_MinAllowed = 0,
+							INP_MaxAllowed = 1000,
+							INP_SplineType = "Default",
+						},
+						track2 = {
+							LINKS_Name = "角度",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "ScrewControl",
+							INP_Default = 0,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 360,
+							INP_MinAllowed = 0,
+							INP_MaxAllowed = 360,
+							INP_SplineType = "Default",
+						}
+					}
+				}
+			},
+		}
+	},
+	ActiveTool = "MacroTool4"
+}

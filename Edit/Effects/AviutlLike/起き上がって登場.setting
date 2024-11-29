@@ -1,0 +1,71 @@
+{
+	Tools = ordered() {
+		MacroTool4 = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "CornerPositioner1",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "CornerPositioner1",
+					Source = "track0",
+					Default = 0.600000023841858,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "CornerPositioner1",
+					Source = "track1",
+					Default = 2,
+				}
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "CornerPositioner1",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				CornerPositioner1 = CornerPositioner {
+					CtrlWZoom = false,
+					Inputs = {
+						TopLeft = Input { Value = { 0, 1.396 }, },
+						TopRight = Input { Value = { 0, 1.013556 }, },
+						BottomLeft = Input { Value = { 0, 0 }, },
+						BottomRight = Input { Value = { 1, 0 }, },
+						FrameRenderScript = Input { Value = "zikan = self.track0 * fps\nif( zikan == 0 ) then\n	return\nelse\n	t = (zikan-time)/zikan\nend\n\nif( t > 0 ) then\n	n = self.track1*2+1\n	if( n <= 1 ) then\n		t = t*t\n	elseif( t > 1-1/n ) then\n		t = 1-(1-t)*n\n	else\n		t = t*n/(n-1)\n		t = math.sin((t-1)*(n-1)*math.pi)*t*0.4/(1+(1-t)*3)\n	end\n	self.TopLeft = Point(0,1 - t)\n	self.TopRight = Point(1,1 - t)\nelse\n	self.TopLeft = Point(0,1)\n	self.TopRight = Point(1,1)	\nend\n", },
+						StartRenderScripts = Input { Value = 1, },
+						StartRenderScript = Input { Value = "fps = comp:GetPrefs(\"Comp.FrameFormat.Rate\")", }
+					},
+					ViewInfo = OperatorInfo { Pos = { 330, 49.5 } },
+					UserControls = ordered() {
+						track0 = {
+							LINKS_Name = "時間",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 0.600000023841858,
+							INP_Integer = false,
+							INP_MinScale = 0.100000001490116,
+							INP_MaxScale = 5,
+							INP_MinAllowed = 0.100000001490116,
+							INP_MaxAllowed = 5,
+							INP_SplineType = "Default",
+						},
+						track1 = {
+							LINKS_Name = "勢い",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 2,
+							INP_Integer = false,
+							INP_MinScale = 0.100000001490116,
+							INP_MaxScale = 8,
+							INP_MinAllowed = 0.100000001490116,
+							INP_MaxAllowed = 8,
+							INP_SplineType = "Default",
+						}
+					}
+				}
+			},
+		}
+	},
+	ActiveTool = "MacroTool4"
+}

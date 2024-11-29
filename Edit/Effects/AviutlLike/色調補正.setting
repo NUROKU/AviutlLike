@@ -1,0 +1,172 @@
+{
+	Tools = ordered() {
+		MacroTool4 = MacroOperator {
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "ColorCorrector1",
+					Source = "track0",
+					Default = 100,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "ColorCorrector1",
+					Source = "track1",
+					Default = 100,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "ColorCorrector1",
+					Source = "track2",
+					Default = 0,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "ColorCorrector1",
+					Source = "track3",
+					Default = 100,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "ColorCorrector1",
+					Source = "track4",
+					Default = 100,
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "Merge1",
+					Source = "Background",
+				}
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "ColorCorrector1",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				Background1 = Background {
+					Inputs = {
+						EffectMask = Input {
+							SourceOp = "Merge1",
+							Source = "Output",
+						},
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, }
+					},
+					ViewInfo = OperatorInfo { Pos = { 495, 82.5 } },
+				},
+				ColorCorrector1 = ColorCorrector {
+					Inputs = {
+						EffectMask = Input {
+							SourceOp = "Background1",
+							Source = "Output",
+						},
+						WheelHue1 = Input { Expression = "self.track2 / 360", },
+						WheelSaturation1 = Input { Expression = "self.track4 / 100", },
+						Hue1 = Input { Expression = "self.track2 / 360", },
+						Saturation1 = Input { Expression = "self.track4 / 100", },
+						MasterRGBContrast = Input { Expression = "self.track1 / 100", },
+						MasterRGBGain = Input { Expression = "self.track3 / 100", },
+						MasterRGBBrightness = Input { Expression = "self.track0 / 100 - 1.0", },
+						ColorRanges = Input {
+							Value = ColorCurves {
+								Curves = {
+									{
+										Points = {
+											{ 0, 1 },
+											{ 0.4, 0.2 },
+											{ 0.6, 0 },
+											{ 1, 0 }
+										}
+									},
+									{
+										Points = {
+											{ 0, 0 },
+											{ 0.4, 0 },
+											{ 0.6, 0.2 },
+											{ 1, 1 }
+										}
+									}
+								}
+							},
+						},
+						HistogramIgnoreTransparent = Input { Value = 1, },
+						Input = Input {
+							SourceOp = "Merge1",
+							Source = "Output",
+						}
+					},
+					ViewInfo = OperatorInfo { Pos = { 495, 16.5 } },
+					UserControls = ordered() {
+						track0 = {
+							LINKS_Name = "明るさ",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 100,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 200,
+							INP_MinAllowed = 0,
+							INP_MaxAllowed = 200,
+							INP_SplineType = "Default",
+						},
+						track1 = {
+							LINKS_Name = "コントラスト",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 100,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 200,
+							INP_MinAllowed = 0,
+							INP_MaxAllowed = 200,
+							INP_SplineType = "Default",
+						},
+						track2 = {
+							LINKS_Name = "色相",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 0,
+							INP_Integer = false,
+							INP_MinScale = -360,
+							INP_MaxScale = 360,
+							INP_MinAllowed = -360,
+							INP_MaxAllowed = 360,
+							INP_SplineType = "Default",
+						},
+						track3 = {
+							LINKS_Name = "輝度",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 100,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 200,
+							INP_MinAllowed = 0,
+							INP_MaxAllowed = 200,
+							INP_SplineType = "Default",
+						},
+						track4 = {
+							LINKS_Name = "彩度",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 100,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 200,
+							INP_MinAllowed = 0,
+							INP_MaxAllowed = 200,
+							INP_SplineType = "Default",
+						}
+					}
+				},
+				Merge1 = Merge {
+					CtrlWZoom = false,
+					Inputs = {
+						PerformDepthMerge = Input { Value = 0, }
+					},
+					ViewInfo = OperatorInfo { Pos = { 330, 16.5 } },
+				}
+			},
+		}
+	},
+	ActiveTool = "MacroTool4"
+}

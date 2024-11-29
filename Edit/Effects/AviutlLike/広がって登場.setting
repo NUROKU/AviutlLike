@@ -1,0 +1,70 @@
+{
+	Tools = ordered() {
+		MacroTool4 = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track0",
+					Default = 0.300000011920929,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track1",
+					Default = 0,
+				}
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Transform1",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				Transform1 = Transform {
+					CtrlWZoom = false,
+					Inputs = {
+						UseSizeAndAspect = Input { Value = 0, },
+						Comments = Input { Value = " ", },
+						FrameRenderScript = Input { Value = "zikan = self.track0 * fps\nif( zikan == 0 ) then\n	return\nelse\n	t = (zikan-time)/zikan\nend\n\nif( t > 0 ) then\n	t = t*t\n	if( self.track1 == 0 ) then\n		self.XSize = 1 - t\n	else\n		self.YSize = 1 - t\n	end\nend", },
+						StartRenderScripts = Input { Value = 1, },
+						StartRenderScript = Input { Value = "fps = comp:GetPrefs(\"Comp.FrameFormat.Rate\")", }
+					},
+					ViewInfo = OperatorInfo { Pos = { 330, 49.5 } },
+					UserControls = ordered() {
+						track0 = {
+							LINKS_Name = "時間",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 0.300000011920929,
+							INP_Integer = false,
+							INP_MinScale = 0.100000001490116,
+							INP_MaxScale = 5,
+							INP_MinAllowed = 0.100000001490116,
+							INP_MaxAllowed = 5,
+							INP_SplineType = "Default",
+						},
+						track1 = {
+							LINKS_Name = "縦方向",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "CheckboxControl",
+							INP_Default = 0,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 1,
+							INP_MinAllowed = 0,
+							INP_MaxAllowed = 1,
+							INP_SplineType = "Default",
+							CBC_TriState = false,
+						}
+					}
+				}
+			},
+		}
+	},
+	ActiveTool = "MacroTool4"
+}

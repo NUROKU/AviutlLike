@@ -1,0 +1,109 @@
+{
+	Tools = ordered() {
+		MacroTool4 = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track0",
+					MinScale = 0.0099999997765,
+					Default = 0.704,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track1",
+					Default = 2,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track2",
+					Default = 100,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track3",
+					Default = 0,
+				}
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Transform1",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				Transform1 = Transform {
+					CtrlWZoom = false,
+					Inputs = {
+						UseSizeAndAspect = Input { Value = 0, },
+						Comments = Input { Value = "x,yを定義するtrack3の処理、何故か開始レンダースクリプトに入れると反応しない", },
+						FrameRenderScript = Input { Value = "if(self.track3==0) then\n  x=1\n  y=1\nelseif(self.track3==1) then\n  x=0\n  y=1\nelseif(self.track3==2) then\n  x=1\n  y=0\nelseif(self.track3==3) then\n  x=-1\n  y=1\nelse\n  x=1\n  y=-1\nend\n\nzikan = self.track0 * fps\nif( zikan == 0 ) then\n  return\nelse\n  t = (zikan-time)/zikan\nend\n\nif(t >= 0) then\n  n = self.track1*2+1\n  if( n <= 1 ) then\n    t = t*t\n  elseif( t > 1-1/n ) then\n    t = 1-(1-t)*n\n  else\n    t = t*n/(n-1)\n    t = math.sin((t-1)*(n-1)*math.pi)*t*0.4/(1+(1-t)*3)\n  end\n  self.XSize = 1 - t*x*self.track2/100\n  self.YSize = 1 - t*y*self.track2/100\nend\n", },
+						StartRenderScripts = Input { Value = 1, },
+						StartRenderScript = Input { Value = "fps = comp:GetPrefs(\"Comp.FrameFormat.Rate\")\nx=1\ny=1\n", },
+						track0 = Input { Value = 0.704, }
+					},
+					ViewInfo = OperatorInfo { Pos = { 330, 49.5 } },
+					UserControls = ordered() {
+						track0 = {
+							LINKS_Name = "時間",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 0.600000023841858,
+							INP_Integer = false,
+							INP_MinScale = 0.00999999977648258,
+							INP_MaxScale = 5,
+							INP_MinAllowed = 0.00999999977648258,
+							INP_MaxAllowed = 5,
+							INP_SplineType = "Default",
+							IC_Steps = 0,
+						},
+						track1 = {
+							LINKS_Name = "勢い",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 2,
+							INP_Integer = false,
+							INP_MinScale = 0,
+							INP_MaxScale = 8,
+							INP_MinAllowed = 0,
+							INP_MaxAllowed = 8,
+							INP_SplineType = "Default",
+							IC_Steps = 0,
+						},
+						track2 = {
+							LINKS_Name = "揺れ幅",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 100,
+							INP_Integer = true,
+							INP_MinScale = 0,
+							INP_MaxScale = 800,
+							INP_MinAllowed = 0,
+							INP_MaxAllowed = 800,
+							INP_SplineType = "Default",
+							IC_Steps = 0,
+						},
+						track3 = {
+							LINKS_Name = "種類",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 0,
+							INP_Integer = true,
+							INP_MinScale = 0,
+							INP_MaxScale = 4,
+							INP_MinAllowed = 0,
+							INP_MaxAllowed = 4,
+							INP_SplineType = "Default",
+							IC_Steps = 0,
+						}
+					}
+				}
+			},
+		}
+	},
+	ActiveTool = "MacroTool4"
+}
