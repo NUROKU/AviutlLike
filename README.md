@@ -1,0 +1,2 @@
+DaVinciResoleで使用できる、AviutlっぽいFusionエフェクト
+のまとめ
