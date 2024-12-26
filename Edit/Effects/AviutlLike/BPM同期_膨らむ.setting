@@ -1,0 +1,106 @@
+{
+	Tools = ordered() {
+		MacroTool4 = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track0",
+					Default = 135,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track1",
+					Default = 2,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track2",
+					Default = 10,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "track3",
+					MinScale = 0.0010000000475,
+					Default = 0.100000001490116,
+				}
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Transform1",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0 } },
+			Tools = ordered() {
+				Transform1 = Transform {
+					CtrlWZoom = false,
+					Inputs = {
+						Comments = Input { Value = "  ", },
+						FrameRenderScript = Input { Value = "bpm=self.track0\ninterval = self.track1\nframe = self.track2\n\nt = fps * 60 / bpm\nc = math.floor(time % (t * interval))\nif(c < frame) then\n    self.Size = 1.0 + sin(1 - c/frame) * self.track3\nelse\n    self.Size = 1.0\nend", },
+						StartRenderScripts = Input { Value = 1, },
+						StartRenderScript = Input { Value = "fps = comp:GetPrefs(\"Comp.FrameFormat.Rate\")", },
+						track0 = Input { Value = 135, },
+						track1 = Input { Value = 2, },
+						track3 = Input { Value = 0.1, }
+					},
+					ViewInfo = OperatorInfo { Pos = { 330, 49.5 } },
+					UserControls = ordered() {
+						track0 = {
+							LINKS_Name = "BPM",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 120,
+							INP_Integer = true,
+							INP_MinScale = 30,
+							INP_MaxScale = 1000,
+							INP_MinAllowed = 30,
+							INP_MaxAllowed = 1000,
+							INP_SplineType = "Default",
+						},
+						track1 = {
+							LINKS_Name = "インターバル",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 4,
+							INP_Integer = true,
+							INP_MinScale = 1,
+							INP_MaxScale = 100,
+							INP_MinAllowed = 1,
+							INP_MaxAllowed = 100,
+							INP_SplineType = "Default",
+						},
+						track2 = {
+							LINKS_Name = "有効フレーム",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 10,
+							INP_Integer = true,
+							INP_MinScale = 1,
+							INP_MaxScale = 100,
+							INP_MinAllowed = 1,
+							INP_MaxAllowed = 100,
+							INP_SplineType = "Default",
+						},
+						track3 = {
+							LINKS_Name = "動作の大きさ",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_Default = 0.100000001490116,
+							INP_Integer = false,
+							INP_MinScale = 0.00100000004749745,
+							INP_MaxScale = 1,
+							INP_MinAllowed = 0.00100000004749745,
+							INP_MaxAllowed = 10,
+							INP_SplineType = "Default",
+						}
+					}
+				}
+			},
+		}
+	},
+	ActiveTool = "MacroTool4"
+}
